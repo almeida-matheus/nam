@@ -1,0 +1,6 @@
+{
+    "commands": ["apt-get",
+        "tar",
+        "unzip"
+    ]
+}

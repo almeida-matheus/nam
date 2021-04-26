@@ -1,6 +1,8 @@
 {
-    "commands": ["apt-get",
-        "tar",
-        "unzip"
+    "commands":[
+        "apt-get.md",
+        "django.md",
+        "tar.md",
+        "unzip.md"
     ]
 }

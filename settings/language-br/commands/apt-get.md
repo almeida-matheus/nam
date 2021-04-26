@@ -1,12 +1,9 @@
 # apt-get
 
 > Gerenciador de pacotes das distribuições baseadas em Debian.
+> Procure por pacotes utilizando o `apt-cache`.
 
-- Procurar pacotes
-
-`apt-cache`
-
-- Atualizar a lista de pacotes disponíveis (recomenda-se executá-lo antes de outros comandos `apt-get`):
+- Atualizar a lista de pacotes disponíveis:
 
 `apt-get update`
 

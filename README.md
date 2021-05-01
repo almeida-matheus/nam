@@ -12,10 +12,30 @@
 <br>
 
 ## About the project
+### `In progress`
+
 Nam is an interface for viewing terminal commands with their main parameters
 <!--<img src="./assets/nam-example.png" alt="nam example">-->
+```
+APT-CACHE
 
-### `In progress`
+Buscador de pacotes para distribuições baseadas no Debian.
+
+- Buscar pacotes no cache de pacotes APT:
+  apt-cache search criterio_de_busca
+
+- Exibir informações sobre um pacote:
+  apt-cache show nome_do_pacote
+
+- Informar a situação de um pacote, se ele está instalado e atualizado:
+  apt-cache policy nome_do_pacote
+
+- Exibir as dependências de um pacote:
+  apt-cache depends nome_do_pacote
+
+- Exibir pacotes dependentes de um determinado pacote:
+  apt-cache rdepends nome_do_pacote
+```
 
 <!-- USAGE -->
 ## How to use
@@ -52,7 +72,7 @@ sudo apt install python3
 git clone "https://github.com/almeida-matheus/nam"
 ```
 
-#### 3. Execute install.sh [linux]
+#### 3. Execute install.sh
 ```
 cd nam/
 chmod +x install.sh

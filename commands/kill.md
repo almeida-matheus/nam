@@ -1,6 +1,7 @@
 # kill
 
 > Envia um sinal para um processo, geralmente para finalizar o processo.
+>>
 > Todos os sinais exceto pelo SIGKILL e SIGSTOP podem ser interceptados pelo processo para finalizar de forma limpa.
 
 - Finaliza um programa usando o sinal default SIGTERM (terminate):

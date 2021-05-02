@@ -4,14 +4,12 @@ import os
 import sys
 import json
 
-
 class colors:
     white = '\033[97m\033[1m'
+    yellow = '\033[93m'
     green = '\033[92m'
     blue = '\033[34m'
-    red = '\033[31m' 
-    red_grey = '\033[0;31;40m'
-    black_white = '\033[0;37;40m'
+    red = '\033[31m'
     end = '\033[m'
 
 currentDir = os.path.dirname(os.path.realpath(__file__))
@@ -21,27 +19,25 @@ listCommands = os.path.join(currentDir, './settings/commands.json')
 listCommands = os.path.abspath(os.path.realpath(listCommands))
 
 def HelpProgram():
-    print('\n')
     print('NAM'.center(60))
-    print('-' * 60)
-    print('| how to use: nam command'.ljust(58), '|')
-    print('-' * 60)
-    print('| -h, --help '.ljust(14), '| display this help text '.ljust(43), '|')
-    print('| -l, --list '.ljust(14), '| show all commands of nam '.ljust(43), '|')
-    print('| -a, --att '.ljust(14), '| update to add new commands '.ljust(43), '|')
-    print('-' * 60)
-    print('version: 0.01\n'.rjust(60))
-    # print(f'\033[32 aaaa \033[m')
-    # print(f'{colors.blue}erro: serviço não cadastrado{colors.end}')
+    print(' '+'—' * 58 + ' ')
+    print('│ how to use: nam command'.ljust(58), '│')
+    print(' '+'—' * 58 + ' ')
+    print('│ -h, --help '.ljust(14), '│ display this help text '.ljust(43), '│')
+    print('│ -l, --list '.ljust(14), '│ show all commands of nam '.ljust(43), '│')
+    print('│ -a, --att '.ljust(14), '│ update to add new commands '.ljust(43), '│')
+    print(' '+'—' * 58 + ' ')
+    print('version: 1.0.0\n'.rjust(60))
 
 def ListCommands():
     # * read json file to show commands avaible
     try:
         with open(listCommands, 'r') as fileJson:
             listJson = json.load(fileJson)
-            print("\ncommands:")
-            for command in listJson["commands"]:
-                print(command)
+            print(f'{colors.white}\ncommands:{colors.end}')
+            for command in listJson['commands']:
+                print(command.replace('.md', ''))
+                
     except (OSError, FileNotFoundError):
         print('cannot open commands.json')
 
@@ -63,10 +59,10 @@ def AttCommands():
 def VerifyCommandExist(command):
     # * read json file to check if command exist
     try:
-        mdcommand = command + ".md"
+        mdcommand = command + '.md'
         fileJson = open(listCommands, 'r')
         arrayJson = json.load(fileJson)
-        if mdcommand not in arrayJson["commands"]:
+        if mdcommand not in arrayJson['commands']:
             print('command not found, maybe try with man or --help')
             sys.exit()
         ReadCommand(mdcommand)
@@ -77,22 +73,22 @@ def VerifyCommandExist(command):
     except UnboundLocalError:
         print('error: use nam --att to fix it')
     except Exception as e:
-        print("something went wrong:\n",e)
+        print('something went wrong:\n',e)
     finally:
         fileJson.close()
 
 def ReadCommand(mdcommand):
     # * read command.md file
     try:
-        localmdcommand = "./commands/" + mdcommand
+        localmdcommand = './commands/' + mdcommand
         pathCommand = os.path.join(currentDir, localmdcommand)
         pathCommand = os.path.abspath(os.path.realpath(pathCommand))
 
         fileCommand = open(pathCommand, 'r', encoding='utf-8')
-        print('-' * 78)
+        print('-' * 90)
         for line in fileCommand:
             FormatPrint(line)
-        print('-' * 78)
+        print('-' * 90)
     except (OSError, FileNotFoundError):
         print('cannot open: ', fileCommand)
     finally:
@@ -112,7 +108,7 @@ def FormatPrint(line):
     line = line.replace('>', ' ').strip(' ')
     #* descrição:
     if (line[-1::] == ':'): #pega ultima posição da string
-        return print(f'{colors.green}{line}{colors.end}', end="")
+        return print(f'{colors.yellow}{line}{colors.end}', end="")
         # return print(line, end="")
     #* linha de código: retira `
     if (line[:1] == '`'): #pega a primeira posição da string
@@ -122,24 +118,24 @@ def FormatPrint(line):
         #* arquivo
         if ('{{' or '}}' in line):
             line = line.replace('{{', '').replace('}}', '')
-        return print(f'{colors.red}{line}{colors.end}')
+        return print(f'{colors.green}{line}{colors.end}')
     if ('`' in line):
         line = line.replace('`', '')
     print(line)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     param = sys.argv[1:]  # list with the first param
 
     if param != []:
         if type(param[0]) is not str:
-            raise ValueError("only string are allowed")
+            raise ValueError('only string are allowed')
         param = str(param[0].lower().strip())
 
-    if param == "--help" or param == []:
+    if param == '--help' or param == '-h' or param == []:
         HelpProgram()
-    elif param == "--att" or param == "-a":
+    elif param == '--att' or param == '-a':
         AttCommands()
-    elif param == "--list" or param == "-l":
+    elif param == '--list' or param == '-l':
         ListCommands()
     else:
         VerifyCommandExist(param)

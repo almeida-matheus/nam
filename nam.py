@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import sys
 import json
@@ -7,7 +9,9 @@ class colors:
     white = '\033[97m\033[1m'
     green = '\033[92m'
     blue = '\033[34m'
+    red = '\033[31m' 
     red_grey = '\033[0;31;40m'
+    black_white = '\033[0;37;40m'
     end = '\033[m'
 
 currentDir = os.path.dirname(os.path.realpath(__file__))
@@ -70,8 +74,10 @@ def VerifyCommandExist(command):
         print('cannot open: ', fileJson)
     except ValueError as e:
         print(e)
+    except UnboundLocalError:
+        print('error: use nam --att to fix it')
     except Exception as e:
-        print("something went wrong\n", e)
+        print("something went wrong:\n",e)
     finally:
         fileJson.close()
 
@@ -83,10 +89,10 @@ def ReadCommand(mdcommand):
         pathCommand = os.path.abspath(os.path.realpath(pathCommand))
 
         fileCommand = open(pathCommand, 'r', encoding='utf-8')
-        print('-' * 60)
+        print('-' * 78)
         for line in fileCommand:
             FormatPrint(line)
-        print('-' * 60)
+        print('-' * 78)
     except (OSError, FileNotFoundError):
         print('cannot open: ', fileCommand)
     finally:
@@ -116,7 +122,7 @@ def FormatPrint(line):
         #* arquivo
         if ('{{' or '}}' in line):
             line = line.replace('{{', '').replace('}}', '')
-        return print(f'{colors.red_grey}{line}{colors.end}')
+        return print(f'{colors.red}{line}{colors.end}')
     if ('`' in line):
         line = line.replace('`', '')
     print(line)

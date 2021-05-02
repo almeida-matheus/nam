@@ -1,18 +1,17 @@
 {
     "commands":[
-        "adduser.md",
-        "alias.md",
-        "apt-cache.md",
-        "apt-get.md",
-        "arp.md",
-        "cat.md",
-        "django.md",
-        "dpkg.md",
         "kill.md",
+        "cat.md",
+        "apt-get.md",
+        "django.md",
         "ls.md",
+        "adduser.md",
+        "unzip.md",
+        "apt-cache.md",
+        "alias.md",
         "tar.md",
-        "test.md",
+        "arp.md",
         "top.md",
-        "unzip.md"
+        "dpkg.md"
     ]
 }

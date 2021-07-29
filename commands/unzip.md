@@ -1,27 +1,19 @@
-# unzip
+# UNZIP
 
-> Ferramenta de descompactação de arquivos zip.
+> Ferramenta de descompactação de arquivos zip
 
-- Extraindo arquivos zip:
+- Extrair arquivos zip:
 
-`unzip {{arquivo.zip}}`
+`unzip [file.zip]`
 
-- Extraindo arquivos zip para caminhos específicos:
+- Extrair arquivos zip para um diretório específico:
 
-`unzip {{arquivo.zip}} -d {{caminho/para}}`
+`unzip [file.zip] -d [path/to/dir]`
 
-- Listando conteúdos de arquivos zip:
+- Listar conteúdos de arquivos zip:
 
-`unzip -l {{arquivo.zip}}`
+`unzip -l [file.zip]`
 
-- Extraindo arquivos zip sobrescrevendo outros arquivos:
+- Extrair arquivos zip sem a estrutura dos diretórios:
 
-`unzip -o {{arquivo.zip}}`
-
-- Extraindo arquivos zip não sobrescrevendo outros arquivos:
-
-`unzip -n {{arquivo.zip}}`
-
-- Extraindo arquivos zip sem a estrutura dos diretórios:
-
-`unzip -j {{arquivo.zip}}`
+`unzip -j [file.zip] unzip -j [file.zip]`

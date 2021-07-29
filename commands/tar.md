@@ -1,37 +1,37 @@
-# tar
+# TAR
 
-> Ferramenta de compressão de arquivos.
+> Ferramenta de compactação e descompactação de arquivos .tar
 >>
-> Utilizado com metodos de compressão como o de gzip ou bzip2.
+> Utilizado com metodos de compressão como o de gzip ou bzip2
 
-- Compactando arquivos em um arquivo tar:
+- Compartar arquivos em um arquivo tar:
 
-`tar -cvf {{output.tar}} {{arquivo1}} {{arquivo2}} {{arquivo3}}`
+`tar -cvf [file.tar] [file1] [file2] [file3]`
 
-- Compactando arquivos em arquivo gzip:
+- Compactar arquivos em arquivo gzip:
 
-`tar -czvf {{output.tar.gz}} {{arquivo1}} {{arquivo2}} {{arquivo3}}`
+`tar -czvf [file.tar.gz] [file1] [file2] [file3]`
 
-- Compactando arquivos definindo tipo de compressão automaticamente por extensão:
+- Compactar arquivos em arquivo gzip:
 
-`tar -cavf {{output.tar.xz}} {{arquivo1}} {{arquivo2}} {{arquivo3}}`
+`tar -cjvf [file.tar.bz2] [file1] [file2] [file3]`
 
-- Extraindo arquivos de um arquivo compactado:
+- Extrair arquivos de um arquivo compactado tar:
 
-`tar -xvf {{input.tar[.gz|.bz2|.xz]}}`
+`tar -xvf [file.tar]`
 
-- Extraindo arquivos de um arquivo compactado filtrando por gzip:
+- Extrair arquivos de um arquivo compactado tar gzip:
 
-`tar -xzvf {{input.tar[.gz|.bz2|.xz]}}`
+`tar -xzvf [file.tar.gz]`
 
-- Extraindo arquivos de um arquivo compactado para um diretório específico:
+- Extrair arquivos de um arquivo compactado tar bzip:
 
-`tar -xvf {{input.tar[.gz|.bz2|.xz]}} -C {{diretório}}`
+`tar -xjvf [file.tar.bz2]`
 
-- Extrair arquivos seguindo um padrão:
+- Extrair arquivos de um arquivo compactado para um diretório específico:
 
-`tar -xvf {{input.tar}} --wildcards "{{*.html}}"`
+`tar -xvf [file.tar] -C [path/to/dir]`
 
-- Listando arquivos de um arquivo tar:
+- Listar arquivos de um arquivo tar:
 
-`tar -tvf {{input.tar}}`
+`tar -tvf [fil.tar]`

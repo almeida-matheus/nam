@@ -1,141 +1,123 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
 import sys
-import json
 
 class colors:
-    white = '\033[97m\033[1m'
-    yellow = '\033[93m'
+    white = '\033[1;97m'
+    grey = '\033[1;37m'
+    red = '\033[91m'
     green = '\033[92m'
-    blue = '\033[34m'
-    red = '\033[31m'
-    end = '\033[m'
+    yellow = '\033[93m'
+    darkblue = '\033[94m'
+    purple = '\033[1;94m'
+    pink = '\033[35m'
+    blue = '\033[96m'
+    red_dark = '\033[0;91;40m'
+    green_dark = '\033[0;92;40m'
+    green_grey = '\033[0;92;100m'
+    end = '\033[0m'
 
-currentDir = os.path.dirname(os.path.realpath(__file__))
-dirCommands = os.path.join(currentDir, './commands')
-dirCommands = os.path.abspath(os.path.realpath(dirCommands))
-listCommands = os.path.join(currentDir, './settings/commands.json')
-listCommands = os.path.abspath(os.path.realpath(listCommands))
+pathCurrentDir = os.path.dirname(os.path.realpath(__file__))
+pathCommandsDir = os.path.abspath(os.path.realpath(
+    os.path.join(pathCurrentDir, './commands/')))
 
-def HelpProgram():
-    print('NAM'.center(60))
-    print(' '+'—' * 58 + ' ')
-    print('│ how to use: nam command'.ljust(58), '│')
-    print(' '+'—' * 58 + ' ')
-    print('│ -h, --help '.ljust(14), '│ display this help text '.ljust(43), '│')
-    print('│ -l, --list '.ljust(14), '│ show all commands of nam '.ljust(43), '│')
-    print('│ -a, --att '.ljust(14), '│ update to add new commands '.ljust(43), '│')
-    print(' '+'—' * 58 + ' ')
-    print('version: 1.0.0\n'.rjust(60))
+def HelpScript():
+    print('\n','nam'.center(70))
+    print(' '+'—' * 68 + ' ')
+    print('│ how to use: nam command'.ljust(68), '│')
+    print('│ example: nam zip'.ljust(68), '│')
+    print(' '+'—' * 68 + ' ')
+    print('│ -h, --help '.ljust(14), '│ display this help text '.ljust(53), '│')
+    print('│ -l, --list '.ljust(14), '│ show all commands of nam '.ljust(53), '│')
+    print('│ -s, --show '.ljust(14), '│ show all markdown commands in vscode '.ljust(53), '│')
+    print(' '+'—' * 68 + ' ')
+    print('1.1.0\n'.rjust(70))
 
-def ListCommands():
-    # * read json file to show commands avaible
+def ShowMarkdown():
+    os.system(f'coded {pathCommandsDir}')
+    print(f'{colors.yellow}edit:\n{pathCommandsDir}{colors.end}')
+    print(f'{colors.yellow}obs: you must have vscode installed and variable environment "code" enabled{colors.end}')
+
+def ScanCommands():
     try:
-        with open(listCommands, 'r') as fileJson:
-            listJson = json.load(fileJson)
-            print(f'{colors.white}\ncommands:{colors.end}')
-            for command in listJson['commands']:
-                print(command.replace('.md', ''))
-                
+        commands = [f[:-3] for f in os.listdir(
+            pathCommandsDir) if os.path.isfile(os.path.join(pathCommandsDir, f))]
+        # print(f'{colors.white}all commands:{colors.end}')
+        for command in commands:
+            print(command)
     except (OSError, FileNotFoundError):
-        print('cannot open commands.json')
-
-def AttCommands():
-    # * read name of archives inside of the command directory
-    commands = [f for f in os.listdir(
-        dirCommands) if os.path.isfile(os.path.join(dirCommands, f))]
-    # ? python list => ['apt-get.md', 'django.md', 'tar.md', 'unzip.md']
-
-    # * create new json with commands
-    obj = ({
-        'commands': commands,
-    })
-
-    with open(listCommands, 'w', encoding='utf8') as jsonFile:
-        json.dump(obj, jsonFile, indent=4, ensure_ascii=False,
-                  sort_keys=True, separators=(',', ':'))
+        print(f'{colors.red}cannot open commands.json{colors.end}')
+    except Exception as e:
+        print(f'{colors.red}something went wrong:\n{e} {colors.end}\n')
 
 def VerifyCommandExist(command):
-    # * read json file to check if command exist
     try:
-        mdcommand = command + '.md'
-        fileJson = open(listCommands, 'r')
-        arrayJson = json.load(fileJson)
-        if mdcommand not in arrayJson['commands']:
-            print('command not found, maybe try with man or --help')
+        commands = [f[:-3] for f in os.listdir(
+            pathCommandsDir) if os.path.isfile(os.path.join(pathCommandsDir, f))]
+        if command not in commands:
+            print(f'{colors.red}command not found, maybe try with man or --help{colors.end}')
             sys.exit()
-        ReadCommand(mdcommand)
+        return command
     except (OSError, FileNotFoundError):
-        print('cannot open: ', fileJson)
-    except ValueError as e:
-        print(e)
-    except UnboundLocalError:
-        print('error: use nam --att to fix it')
+        print('cannot open: ', pathCommandsDir)
+    except Exception as e:
+        print('something went wrong:\n',e)
+
+def ReadCommand(command):
+    try:
+        pathCommandFile = os.path.join(pathCommandsDir, command + '.md')
+        pathCommandFile = os.path.abspath(os.path.realpath(pathCommandFile))
+        file_command = open(pathCommandFile, 'r', encoding='utf-8')
+        lines=file_command.readlines()
+        lines=[line.strip() for line in lines]
+        return lines
+    except (OSError, FileNotFoundError):
+        print('cannot open: ', pathCommandFile)
     except Exception as e:
         print('something went wrong:\n',e)
     finally:
-        fileJson.close()
+        file_command.close()
 
-def ReadCommand(mdcommand):
-    # * read command.md file
-    try:
-        localmdcommand = './commands/' + mdcommand
-        pathCommand = os.path.join(currentDir, localmdcommand)
-        pathCommand = os.path.abspath(os.path.realpath(pathCommand))
-
-        fileCommand = open(pathCommand, 'r', encoding='utf-8')
-        print('-' * 90)
-        for line in fileCommand:
-            FormatPrint(line)
-        print('-' * 90)
-    except (OSError, FileNotFoundError):
-        print('cannot open: ', fileCommand)
-    finally:
-        fileCommand.close()
-
-def FormatPrint(line):
-    #* retira \n desnecessários
-    line = line.replace('\n', 'ä').strip('ä')
-    #* titulo: retira o # e coloca em maiusculo
-    if ('#' in line):
+def PrintLine(line):
+    #? tipo - titulo {#}
+    if (line[:1] == '#'):
         line = line.replace('#', ' ').strip().upper()
         return print(f'{colors.white}{line}{colors.end}')
-        # return print(f'\n{line}')
-    #* comentários: retira \n entre eles e o >
-    if (line[0:2] == '>>'):
-        return
-    line = line.replace('>', ' ').strip(' ')
-    #* descrição:
-    if (line[-1::] == ':'): #pega ultima posição da string
-        return print(f'{colors.yellow}{line}{colors.end}', end="")
-        # return print(line, end="")
-    #* linha de código: retira `
-    if (line[:1] == '`'): #pega a primeira posição da string
-        line = line.replace('`', '  ')
-        # print(line, end="")
-        #* tag da linha de código: retira `
-        #* arquivo
-        if ('{{' or '}}' in line):
-            line = line.replace('{{', '').replace('}}', '')
-        return print(f'{colors.green}{line}{colors.end}')
-    if ('`' in line):
+    #? tipo - comentário sobre o comando {>}
+    if (line[:1] == '>'):
+        if (line[0:2] == '>>'):
+            return
+        line = line.replace('>', ' ').strip(' ')
+        return print(f'{colors.white}{line}{colors.end}')
+    #? tipo - descrição do código {:}
+    if (line[-1::] == ':'): #* ultima posição da string
+        return print(f'{colors.white}{line}{colors.end}', end='')
+    #? tipo - linha de código {``}
+    if (line[:1] == '`'):
         line = line.replace('`', '')
+        if ('[' or ']' in line):
+            line = line.replace('[', f'{colors.blue}').replace(']', f'{colors.end}{colors.green}')
+        # if ('<' or '>' in line):
+        #     line = line.replace('[', f'{colors.purple}').replace(']', f'{colors.end}{colors.green}')
+        return print(f'  {colors.green}{line}{colors.end}')
     print(line)
-
+    
 if __name__ == '__main__':
-    param = sys.argv[1:]  # list with the first param
-
+    param = sys.argv[1:] 
     if param != []:
-        if type(param[0]) is not str:
-            raise ValueError('only string are allowed')
         param = str(param[0].lower().strip())
-
     if param == '--help' or param == '-h' or param == []:
-        HelpProgram()
-    elif param == '--att' or param == '-a':
-        AttCommands()
+        HelpScript()
     elif param == '--list' or param == '-l':
-        ListCommands()
+        ScanCommands()
+    elif param == '--show' or param == '-s':
+        ShowMarkdown()
     else:
-        VerifyCommandExist(param)
+        command = VerifyCommandExist(param)
+        lines = ReadCommand(command)
+        print('-' * 70)
+        for line in lines:
+            PrintLine(line)
+        print('-' * 70)

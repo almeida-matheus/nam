@@ -2,7 +2,7 @@
 
 > Buscador de pacotes para distribuições baseadas no Debian.
 
-- Buscar pacotes, no cache de pacotes APT, correspondentes ao critério de busca:
+- Buscar pacotes correspondentes ao critério de busca:
 
 `apt-cache search {search_name}`
 
@@ -10,7 +10,7 @@
 
 `apt-cache show {package_name}`
 
-- Informar a situação de um pacote, se ele está instalado e atualizado:
+- Informar a situação de um pacote:
 
 `apt-cache policy {package_name}`
 

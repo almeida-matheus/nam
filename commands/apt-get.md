@@ -24,7 +24,7 @@
 
 `apt-get upgrade`
 
-- Limpar o repositório local — removendo os arquivos de pacotes (`.deb`) de downloads interrompidos que não podem mais ser baixados:
+- Limpar o repositório local — arquivos de pacotes (`.deb`) de downloads interrompidos:
 
 `apt-get autoclean`
 

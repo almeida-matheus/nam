@@ -34,4 +34,4 @@
 
 - Listar arquivos de um arquivo tar:
 
-`tar -tvf [fil.tar]`
+`tar -tvf [file.tar]`

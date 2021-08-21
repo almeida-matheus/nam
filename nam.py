@@ -17,16 +17,17 @@ class colors:
     green_grey = '\033[0;92;100m'
     end = '\033[0m'
 
-SETTINGS_FILE = os.path.abspath(os.path.realpath(
+COMMANDS_DIR = os.path.abspath(os.path.realpath(
     os.path.join(os.path.dirname(os.path.realpath(__file__)), './commands/')))
 
 def HelpScript():
-    print('\n', 'nam'.center(70))
+    print('\n')
+    print('NAM'.center(70))
     print(' '+'—' * 68 + ' ')
     print('│ command line tool to view simpler command help pages'.ljust(68), '│')
     print('│ with a focus on practical examples'.ljust(68), '│')
     print(' '+'—' * 68 + ' ')
-    print('│ how to use: nam command-name'.ljust(68), '│')
+    print('│ how to use: nam command'.ljust(68), '│')
     print(' '+'—' * 68 + ' ')
     print('│ -h, --help '.ljust(14), '│ display this help text '.ljust(53), '│')
     print('│ -l, --list '.ljust(14), '│ show all available commands '.ljust(53), '│')
@@ -35,14 +36,14 @@ def HelpScript():
     print('1.1.0\n'.rjust(70))
 
 def ShowMarkdown():
-    os.system(f'code {SETTINGS_FILE}')
-    print(f'{colors.yellow}edit:\n{SETTINGS_FILE}{colors.end}')
+    os.system(f'code {COMMANDS_DIR}')
+    print(f'{colors.yellow}edit:\n{COMMANDS_DIR}{colors.end}')
     print(f'{colors.yellow}obs: you must have vscode installed and variable environment "code" enabled{colors.end}')
 
 def ScanCommands():
     try:
         commands = [f[:-3] for f in os.listdir(
-            SETTINGS_FILE) if os.path.isfile(os.path.join(SETTINGS_FILE, f))]
+            COMMANDS_DIR) if os.path.isfile(os.path.join(COMMANDS_DIR, f))]
         print(f'{colors.yellow}all commands:{colors.end}')
         for command in commands:
             print(command)
@@ -54,22 +55,19 @@ def ScanCommands():
 def VerifyCommandExist(command):
     try:
         commands = [f[:-3] for f in os.listdir(
-            SETTINGS_FILE) if os.path.isfile(os.path.join(SETTINGS_FILE, f))]
+            COMMANDS_DIR) if os.path.isfile(os.path.join(COMMANDS_DIR, f))]
         if command not in commands:
-            print(
-                f'{colors.red}command not found, maybe try with man or --help{colors.end}')
-            sys.exit()
+            print(f'{colors.red}command not found, maybe try with man or --help{colors.end}')
+            exit()
         return command
     except (OSError, FileNotFoundError):
-        print('cannot open: ', SETTINGS_FILE)
+        print('cannot open: ', COMMANDS_DIR)
     except Exception as e:
         print('something went wrong:\n', e)
 
 def ReadCommand(command):
     try:
-        path_command_file = os.path.join(SETTINGS_FILE, command + '.md')
-        path_command_file = os.path.abspath(
-            os.path.realpath(path_command_file))
+        path_command_file = os.path.join(COMMANDS_DIR, command + '.md')
         file_command = open(path_command_file, 'r', encoding='utf-8')
         lines = file_command.readlines()
         lines = [line.strip() for line in lines]
@@ -82,20 +80,19 @@ def ReadCommand(command):
         file_command.close()
 
 def PrintLine(line):
-    # ? tipo - titulo {#}
+    #? type - title {#}
     if (line[:1] == '#'):
         line = line.replace('#', ' ').strip().upper()
         return print(f'{colors.white}{line}{colors.end}')
-    # ? tipo - comentário sobre o comando {>}
+    #? type - comentary about command {>}
     if (line[:1] == '>'):
-        if (line[0:2] == '>>'):
-            return
+        if (line[0:2] == '>>'): return
         line = line.replace('>', ' ').strip(' ')
         return print(f'{colors.white}{line}{colors.end}')
-    # ? tipo - descrição do código {:}
-    if (line[-1::] == ':'):  # * ultima posição da string
+    #? type - code description {:}
+    if (line[-1::] == ':'): 
         return print(f'{colors.white}{line}{colors.end}', end='')
-    # ? tipo - linha de código {``}
+    #? type - line of code {``}
     if (line[:1] == '`'):
         line = line.replace('`', '')
         if ('[' or ']' in line):
@@ -108,17 +105,17 @@ def PrintLine(line):
     print(line)
 
 if __name__ == '__main__':
-    param = sys.argv[1:]
-    if param != []:
-        param = str(param[0].lower().strip())
-    if param == '--help' or param == '-h' or param == []:
+    arg = sys.argv[1:]
+    if arg != []:
+        arg = str(arg[0].lower().strip())
+    if arg == '--help' or arg == '-h' or arg == []:
         HelpScript()
-    elif param == '--list' or param == '-l':
+    elif arg == '--list' or arg == '-l':
         ScanCommands()
-    elif param == '--show' or param == '-s':
+    elif arg == '--show' or arg == '-s':
         ShowMarkdown()
     else:
-        command = VerifyCommandExist(param)
+        command = VerifyCommandExist(arg)
         lines = ReadCommand(command)
         print('-' * 70)
         for line in lines:

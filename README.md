@@ -11,7 +11,8 @@
 <br>
 
 ## About the project
-Nam is an interface for viewing terminal commands with their main parameters
+Nam is a command line tool to view simpler command help pages, with a focus on practical examples.
+
 <img src="./assets/nam.gif" alt="nam">
 
 <!-- USAGE -->
@@ -36,7 +37,7 @@ sudo apt install python3
 git clone "https://github.com/almeida-matheus/nam"
 ```
 
-#### 3. Execute `install.sh`
+#### 3. Execute install.sh
 ```
 cd nam/
 chmod +x install.sh

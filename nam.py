@@ -8,9 +8,8 @@ class colors:
     white = '\033[1;97m'
     grey = '\033[1;37m'
     red = '\033[0;91m'
-    green = '\033[0;92m'
-    yellow = '\033[1;33m'
-    purple = '\033[1;94m'
+    green = '\033[38;5;77m'
+    yellow = '\033[38;5;227m'
     blue = '\033[38;5;45m'
     red_dark = '\033[0;91;40m'
     green_dark = '\033[0;92;40m'
@@ -99,7 +98,7 @@ def PrintLine(line):
             line = line.replace('[', f'{colors.blue}').replace(
                 ']', f'{colors.end}{colors.green}')
         if ('{' or '}' in line):
-            line = line.replace('{', f'{colors.purple}').replace(
+            line = line.replace('{', f'{colors.yellow}').replace(
                 '}', f'{colors.end}{colors.green}')
         return print(f'  {colors.green}{line}{colors.end}')
     print(line)

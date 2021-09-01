@@ -1,4 +1,4 @@
-# apt-get
+# APT-GET
 
 > Gerenciador de pacotes das distribuições baseadas em Debian.
 >>

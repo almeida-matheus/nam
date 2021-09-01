@@ -1,4 +1,4 @@
-# dpkg
+# DPKG
 
 > Gerenciador de pacotes Debian.
 

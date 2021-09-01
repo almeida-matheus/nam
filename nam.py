@@ -6,21 +6,18 @@ import sys
 
 class colors:
     white = '\033[1;97m'
-    grey = '\033[1;37m'
     red = '\033[0;91m'
     green = '\033[38;5;77m'
-    yellow = '\033[38;5;227m'
-    blue = '\033[38;5;45m'
-    red_dark = '\033[0;91;40m'
-    green_dark = '\033[0;92;40m'
-    green_grey = '\033[0;92;100m'
+    yellow = '\033[38;5;227'
+    purple = '\033[38;5;147m'
+    blue = '\033[38;5;81m'
     end = '\033[0m'
 
 COMMANDS_DIR = os.path.abspath(os.path.realpath(
     os.path.join(os.path.dirname(os.path.realpath(__file__)), './commands/')))
 
 def HelpScript():
-    print('\n')
+    print('')
     print('NAM'.center(70))
     print(' '+'—' * 68 + ' ')
     print('│ command line tool to view simpler command help pages'.ljust(68), '│')
@@ -36,7 +33,7 @@ def HelpScript():
 
 def ShowMarkdown():
     os.system(f'code {COMMANDS_DIR}')
-    print(f'{colors.yellow}edit:\n{COMMANDS_DIR}{colors.end}')
+    print(f'{colors.yellow}edit: {COMMANDS_DIR}{colors.end}')
     print(f'{colors.yellow}obs: you must have vscode installed and variable environment "code" enabled{colors.end}')
 
 def ScanCommands():
@@ -98,7 +95,7 @@ def PrintLine(line):
             line = line.replace('[', f'{colors.blue}').replace(
                 ']', f'{colors.end}{colors.green}')
         if ('{' or '}' in line):
-            line = line.replace('{', f'{colors.yellow}').replace(
+            line = line.replace('{', f'{colors.purple}').replace(
                 '}', f'{colors.end}{colors.green}')
         return print(f'  {colors.green}{line}{colors.end}')
     print(line)

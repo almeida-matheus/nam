@@ -1,6 +1,6 @@
 # UNZIP
 
-> Ferramenta de descompactação de arquivos zip
+> Ferramenta de descompactação de arquivos zip.
 
 - Extrair arquivos zip:
 

@@ -1,6 +1,6 @@
 # ZIP
 
-> Ferramenta de compactação de arquivos zip
+> Ferramenta de compactação de arquivos zip.
 
 - Adicionar múltiplos arquivos no mesmo arquivo zip:
 

@@ -1,6 +1,6 @@
-# django
+# DJANGO
 
-> Framework em python para a criação de aplicações web
+> Framework em Python para a criação de aplicações web.
 
 - Criar um projeto:
 

@@ -1,8 +1,6 @@
-# apt-get
+# YUM
 
-> Gerenciador de pacotes das distribuições baseadas em Debian.
->>
-> Procure por pacotes utilizando o `apt-cache`.
+> Gerenciador de pacotes das distribuições baseadas em RedHat.
 
 - Atualizar os pacotes:
 
@@ -22,7 +20,7 @@
 
 - Localizar um pacote específico:
 
-`yum search {search}`
+`yum search {package_name}`
 
 - Saber a qual pacote um arquivo pertence:
 

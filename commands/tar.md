@@ -2,7 +2,7 @@
 
 > Ferramenta de compactação e descompactação de arquivos .tar
 >>
-> Utilizado com metodos de compressão como o de gzip ou bzip2
+> Utilizado com metodos de compressão como o de gzip ou bzip2.
 
 - Compartar arquivos em um arquivo tar:
 

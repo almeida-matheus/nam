@@ -1,6 +1,6 @@
-# top
+# TOP
 
-> Utilitário para exibir informações, em tempo real, sobre os processos em execução.
+> Utilitário para exibir informações em tempo real sobre os processos em execução.
 
 - Iniciar top:
 
@@ -12,7 +12,7 @@
 
 - Exibir os processos de um usuário específico:
 
-`top -u {username}`
+`top -u {user}`
 
 - Exibir o(s) processo(s) de um ou mais PID específico(s):
 

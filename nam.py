@@ -8,15 +8,14 @@ class colors:
     white = '\033[1;97m'
     red = '\033[0;91m'
     green = '\033[38;5;77m'
-    yellow = '\033[38;5;227'
+    yellow = '\033[38;5;227m'
     purple = '\033[38;5;147m'
     blue = '\033[38;5;81m'
     end = '\033[0m'
 
-COMMANDS_DIR = os.path.abspath(os.path.realpath(
-    os.path.join(os.path.dirname(os.path.realpath(__file__)), './commands/')))
+COMMANDS_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)),'commands/')
 
-def HelpScript():
+def help():
     print('')
     print('NAM'.center(70))
     print(' '+'—' * 68 + ' ')
@@ -31,12 +30,12 @@ def HelpScript():
     print(' '+'—' * 68 + ' ')
     print('1.1.0\n'.rjust(70))
 
-def ShowMarkdown():
+def show_markdown():
     os.system(f'code {COMMANDS_DIR}')
     print(f'{colors.yellow}edit: {COMMANDS_DIR}{colors.end}')
     print(f'{colors.yellow}obs: you must have vscode installed and variable environment "code" enabled{colors.end}')
 
-def ScanCommands():
+def scan_commands():
     try:
         commands = [f[:-3] for f in os.listdir(
             COMMANDS_DIR) if os.path.isfile(os.path.join(COMMANDS_DIR, f))]
@@ -48,7 +47,7 @@ def ScanCommands():
     except Exception as e:
         print(f'{colors.red}something went wrong:\n{e} {colors.end}\n')
 
-def VerifyCommandExist(command):
+def verify_command_exist(command):
     try:
         commands = [f[:-3] for f in os.listdir(
             COMMANDS_DIR) if os.path.isfile(os.path.join(COMMANDS_DIR, f))]
@@ -61,7 +60,7 @@ def VerifyCommandExist(command):
     except Exception as e:
         print('something went wrong:\n', e)
 
-def ReadCommand(command):
+def read_command(command):
     try:
         path_command_file = os.path.join(COMMANDS_DIR, command + '.md')
         file_command = open(path_command_file, 'r', encoding='utf-8')
@@ -75,10 +74,10 @@ def ReadCommand(command):
     finally:
         file_command.close()
 
-def PrintLine(line):
+def print_line(line):
     #? type - title {#}
     if (line[:1] == '#'):
-        line = line.replace('#', ' ').strip().upper()
+        line = line.replace('#', ' ').strip()
         return print(f'{colors.white}{line}{colors.end}')
     #? type - comentary about command {>}
     if (line[:1] == '>'):
@@ -86,15 +85,15 @@ def PrintLine(line):
         line = line.replace('>', ' ').strip(' ')
         return print(f'{colors.white}{line}{colors.end}')
     #? type - code description {:}
-    if (line[-1::] == ':'): 
+    if (line[-1::] == ':'):
         return print(f'{colors.white}{line}{colors.end}', end='')
     #? type - line of code {``}
     if (line[:1] == '`'):
         line = line.replace('`', '')
-        if ('[' or ']' in line):
+        if ('[' and ']' in line):
             line = line.replace('[', f'{colors.blue}').replace(
                 ']', f'{colors.end}{colors.green}')
-        if ('{' or '}' in line):
+        if ('{' and '}' in line):
             line = line.replace('{', f'{colors.purple}').replace(
                 '}', f'{colors.end}{colors.green}')
         return print(f'  {colors.green}{line}{colors.end}')
@@ -105,15 +104,15 @@ if __name__ == '__main__':
     if arg != []:
         arg = str(arg[0].lower().strip())
     if arg == '--help' or arg == '-h' or arg == []:
-        HelpScript()
+        help()
     elif arg == '--list' or arg == '-l':
-        ScanCommands()
+        scan_commands()
     elif arg == '--show' or arg == '-s':
-        ShowMarkdown()
+        show_markdown()
     else:
-        command = VerifyCommandExist(arg)
-        lines = ReadCommand(command)
+        command = verify_command_exist(arg)
+        lines = read_command(command)
         print('-' * 70)
         for line in lines:
-            PrintLine(line)
+            print_line(line)
         print('-' * 70)

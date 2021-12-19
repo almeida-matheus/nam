@@ -12,6 +12,10 @@
 
 `apt-get install {package_name}`
 
+- Informações gerais sobre um pacote:
+
+`apt-get show {package_name}`
+
 - Remover um pacote:
 
 `apt-get remove {package_name}`

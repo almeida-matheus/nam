@@ -1,6 +1,6 @@
 # PIP
 
-> Gerenciador de pacotes do Python3.
+> Gerenciador de pacotes do Python.
 
 - Instalar o pip:
 
@@ -12,20 +12,37 @@
 
 - Instalar um pacote:
 
-`pip3 install {package}`
+`pip install {package}`
 
 - Atualizar um pacote:
 
-`pip3 install —upgrade {package}`
+`pip install —upgrade {package}`
 
 - Desinstalar um pacote:
 
-`pip3 uninstall {package}`
+`pip uninstall {package}`
 
-- Listar os pacotes instalados:
+- Reinstalar um pacote:
 
-`pip3 freeze`
+`sudo pip install {package} --force-reinstall`
+
+- Atualizar um pacote:
+
+`pip install {package} --upgrade`
+
+- Fazer download do pacote no diretório atual:
+
+`pip install {package} -t .`
+
+- Listar os pacotes que o se ambiente possui instalado:
+
+`pip freeze`
+`pip list`
 
 - Instalar pacotes com base em um arquivo:
 
-`pip3 install -r {requeriments.txt}`
+`pip install -r {requeriments.txt}`
+
+- Listar todos pacotes utilizados no projeto:
+
+`pipreqs [path/to/dir]`

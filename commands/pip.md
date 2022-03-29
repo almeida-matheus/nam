@@ -8,7 +8,7 @@
 
 - Atualizar o pip:
 
-`python3 -m pip install —upgrade pip`
+`python3 -m pip install --upgrade pip`
 
 - Instalar um pacote:
 
@@ -43,6 +43,6 @@
 
 `pip install -r {requeriments.txt}`
 
-- Listar todos pacotes utilizados no projeto:
+- Listar todos pacotes utilizados no projeto e redirecionar para o requeriments.txt:
 
 `pipreqs [path/to/dir]`

@@ -16,7 +16,7 @@
 
 `openssl req -out {request.csr} -new -newkey rsa:2048 -nodes -keyout {private.key}`
 
-- Gerar uma requisição CSR com uma nova chave privada sem o prompt interartivo:
+- Gerar uma requisição CSR com uma nova chave privada sem o prompt interativo:
 
 ` openssl req -out {request.csr} -newkey rsa:2048 -nodes -keyout {private.key} -subj {"/C=BR/ST=MG/L=BH/O=Security/OU=IT Department/CN=example.com"}`
 
@@ -26,11 +26,11 @@
 
 ## Exibir
 
-- Exibir requisição CSR em formato texto:
+- Exibir informações da requisição CSR:
 
 `openssl req -in {request.csr} -text -noout`
 
-- Exibir o certificado em formato texto
+- Exibir informações do certificado em formato texto
 
 `openssl x509 -inform PEM -in {certificate.pem} -text`
 
@@ -55,3 +55,14 @@
 - Converter PEM(público + privado) para PFX:
 
 `openssl pkcs12 -export -out {certificate.pfx} -inkey {private.key} -in {certificate.cer} -passout file:{password_pfx.txt}`
+
+## Criptografia
+
+- Descriptografar chave privada:
+`openssl rsa -in [Encrypted.key] -out [Decrypted.key]`
+
+- Criptografar chave privada usando AES-256 - requer senha:
+`openssl rsa -in [Decrypted.key] -out [Encrypted.key] -aes256`
+
+- Criptografar chave privada usando AES-256 - requer senha:
+`openssl rsa -in [Decrypted.key] -out [Encrypted.key] -des3Tri`

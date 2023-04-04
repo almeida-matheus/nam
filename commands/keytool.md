@@ -2,26 +2,27 @@
 
 > Ferramenta para gerenciar certificados digitais
 
-- Converter .PFX para .JKS ou KEYSTORE:
+- Obter informações do certificado JKS KEYSTORE:
+
+`keytool -list -v -keystore [Certificate.jks] -storepass {private_passwd_jks}`
+
+- Converter PKCS12 [PFX ou P12] para JKS ou KEYSTORE interativamente:
 
 `keytool -importkeystore -srckeystore [Certificate.pfx] -srcstoretype pkcs12 -destkeystore [Certificate.jks] -deststoretype JKS`
 
-- Converter .PFX para .JKS ou KEYSTORE passando senha diretamente:
+- Converter PKCS12 [PFX ou P12] para JKS KEYSTORE passando senha diretamente:
 
-`keytool -importkeystore -srckeystore [Certificate.pfx] -srcstoretype pkcs12 -srcalias 1 -destkeystore [Certificate.jks] -deststoretype jks -deststorepass {private_passwd_jks} -destalias {new_alias}`
+`keytool -importkeystore -srckeystore [Certificate.pfx] -srcstoretype pkcs12 -srcalias 1 -destkeystore [Certificate.jks] -deststoretype jks -destalias {new_alias} -deststorepass {private_passwd_jks} -srcstorepass {private_passwd_jks}`
 
-- Converter .CER para .JKS:
-
-`keytool -import -trustcacerts -alias {new_alias} -file [Certificate.cer] -keystore [Certificate.jks]`
-
-- Converter .JKS para .PFX:
+- Converter JKS KEYSTORE para PKCS12 [PFX ou P12]:
 
 `keytool -importkeystore -srckeystore [Certificate.jks] -srcstoretype JKS -destkeystore [Certificate.pfx] -deststoretype PKCS12`
 
-- Verificar JKS Alias:
+- Converter PEM - [base64] para JKS KEYSTORE:
 
-`keytool -list -v -keystore [Certificate.jks] | grep "Alias"`
+`keytool -import -trustcacerts -alias {new_alias} -file [Certificate.cer] -keystore [Certificate.jks]`
 
-- Alterar JKS Alias:
+- Alterar JKS alias:
 
 `keytool -keystore [Certificate.jks] -changealias -alias {old_alias} -destalias {new_alias}`
+

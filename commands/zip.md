@@ -12,7 +12,7 @@
 
 - Adicionar um arquivo zip com senha:
 
-`zip -er  [file.zip] [dir1]`
+`zip -er [file.zip] [dir1]`
 
 - Utilizar o maior nível de compressão:
 

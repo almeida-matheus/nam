@@ -24,6 +24,12 @@
 
 `openssl req -config {csr.conf} -new -newkey rsa:2048 -nodes -keyout {private.key} -out {request.csr}`
 
+- Gerar caracteres aleatórios:
+
+`openssl rand -hex 16`
+
+`openssl rand -base64 16`
+
 ## Exibir
 
 - Exibir informações da requisição CSR:
@@ -78,17 +84,13 @@
 
 `openssl x509 -in {certificate.pem} -inform pem -out {certificate.cer} -outform der`
 
-- Converter PEM(público + privado + cadeia) para PFX:
+- Converter PEM(público + privado + cadeia) para PKCS12 [PFX ou P12]:
 
 `openssl pkcs12 -export -out {certificate.pfx} -inkey {private.key} -in {certificate.cer} -certfile {chain.crt} -passout file:{password_pfx.txt}`
 
-- Converter PEM(público + privado) para PFX:
+`openssl pkcs12 -export -out {certificate.pfx} -inkey {private.key} -in {certificate.cer} -certfile {chain.crt} -passin pass:[pfx_password]}`
 
-`openssl pkcs12 -export -out {certificate.pfx} -inkey {private.key} -in {certificate.cer} -passin pass:[pfx_password]`
-
-`openssl pkcs12 -export -out {certificate.pfx} -inkey {private.key} -in {certificate.cer} -passout file{password_pfx.txt}`
-
-- Converter PFX para PEM:
+- Converter PKCS12 [PFX ou P12] para PEM:
 
 `openssl pkcs12 -in {certificate.pfx} -out {certificate.pem} -nodes`
 
